@@ -1,0 +1,11 @@
+---
+
+- name: Redis role execution play
+  hosts: all
+  become: true
+  roles:
+    - role: bilalcaliskan.vagrant_preparation
+      when: redis_install | bool
+    - role: bilalcaliskan.redis
+
+...

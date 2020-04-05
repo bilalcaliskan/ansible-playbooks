@@ -1,0 +1,13 @@
+---
+
+- name: Examine all stat output of /etc/passwd
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Stat /etc/passwd
+      stat:
+        path: /etc/passwd
+      register: result
+    - name: Display stat result
+      debug:
+        var: result

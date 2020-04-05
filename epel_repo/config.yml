@@ -1,0 +1,11 @@
+---
+
+- name: Epel repository play
+  hosts: all
+  vars:
+    epel_repo_url: https://nexus-st.bilyoner.com/repository/yum-proxy-epel/$releasever/$basearch/
+    epel_public_key_url: "https://nexus-st.bilyoner.com/repository/raw-hosted/epel/RPM-GPG-KEY-EPEL-{{ ansible_facts['distribution_major_version'] }}"
+  roles:
+    - epel
+
+...

@@ -1,0 +1,11 @@
+---
+
+- name: Remi repository play
+  hosts: all
+  vars:
+    remi_repo_url: https://nexus-st.bilyoner.com/repository/yum-proxy-remi/$releasever/remi/$basearch/
+    remi_public_key_url: https://nexus-st.bilyoner.com/repository/raw-hosted/remi/RPM-GPG-KEY-remi
+  roles:
+    - remi
+
+...

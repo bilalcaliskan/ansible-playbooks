@@ -1,0 +1,9 @@
+---
+
+- name: Setup kafka_exporter
+  hosts: all
+  become: true
+  roles:
+    - role: kafka_exporter
+
+...
