@@ -1,10 +1,10 @@
 ---
 
 - hosts: all
-  name: Setup Nginx instances
+  name: Setup Nginx play
   become: true
   roles:
-    - role: bilalcaliskan.kafka
+    - role: bilalcaliskan.nginx
       vars:
         ramfs_size: 256M
 

@@ -4,6 +4,6 @@
   hosts: all
   become: true
   roles:
-    - role: kafka_exporter
+    - role: bilalcaliskan.kafka_exporter
 
 ...

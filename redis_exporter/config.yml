@@ -4,6 +4,6 @@
   hosts: all 
   become: true
   roles:
-    - role: redis_exporter
+    - role: bilalcaliskan.redis_exporter
 
 ...
