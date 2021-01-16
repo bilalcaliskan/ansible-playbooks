@@ -1,0 +1,9 @@
+---
+
+- name: Varnish role execution play
+  hosts: all
+  become: true
+  roles:
+    #- role: bilalcaliskan.vagrant_preparation
+    #  when: install_varnish | bool
+    - role: bilalcaliskan.varnish
