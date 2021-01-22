@@ -1,0 +1,9 @@
+---
+
+- name: Apache Ignite role execution play
+  hosts: all
+  become: true
+  roles:
+    - role: bilalcaliskan.vagrant_preparation
+      when: install_ignite | bool
+    - role: bilalcaliskan.apache_ignite
