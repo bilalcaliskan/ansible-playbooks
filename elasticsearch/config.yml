@@ -1,19 +1,78 @@
 ---
 
-- name: Apache Ignite role execution play
-  hosts: all
+- hosts: all
   become: true
   roles:
     - geerlingguy.java
-    - role: geerlingguy.elasticsearch
-      vars:
-        elasticsearch_version: "7.x"
-        elasticsearch_package_version: "7.2.1"
-        elasticsearch_package_state: present
-        elasticsearch_service_state: started
-        elasticsearch_service_enabled: true
-        elasticsearch_network_host: "0.0.0.0"
-        elasticsearch_http_port: 9200
-        elasticsearch_heap_size_min: 1g
-        elasticsearch_heap_size_max: 1g
-        elasticsearch_extra_options: ""
+
+- hosts: master
+  roles:
+    - role: elastic.elasticsearch
+  vars:
+    es_heap_size: "{{ (ansible_memtotal_mb / 2) | int }}m"
+    es_config:
+      cluster.name: "{{ cluster_name }}"
+      discovery.seed_hosts: "{{ groups['master'] }}"
+      http.port: 9200
+      node.data: false
+      node.master: true
+      bootstrap.memory_lock: "{{ memory_lock | bool }}"
+      discovery.zen.minimum_master_nodes: "{{ elasticsearch_minimum_master_nodes }}"
+      network.host: "0.0.0.0"
+      http.compression: true
+      http.compression_level : 3
+      action.destructive_requires_name: true
+      indices.fielddata.cache.size: 30%
+      indices.queries.cache.size: 30%
+      indices.query.bool.max_clause_count : 500000
+      cluster.initial_master_nodes: "{{ groups['master'] }}"
+
+- hosts: data
+  roles:
+    - role: elastic.elasticsearch
+  vars:
+    es_heap_size: "{{ (ansible_memtotal_mb / 2) | int }}m"
+    es_data_dirs:
+      - "/data"
+    es_log_dir: "/var/log/elasticsearch"
+    es_config:
+      cluster.name: "{{ cluster_name }}"
+      discovery.seed_hosts: "{{ groups['master'] }}"
+      http.port: 9200
+      node.data: true
+      node.master: false
+      bootstrap.memory_lock: "{{ memory_lock | bool }}"
+      discovery.zen.minimum_master_nodes: "{{ elasticsearch_minimum_master_nodes }}"
+      network.host: "0.0.0.0"
+      http.compression: true
+      http.compression_level : 3
+      action.destructive_requires_name: true
+      indices.fielddata.cache.size: 30%
+      indices.queries.cache.size: 30%
+      indices.query.bool.max_clause_count : 500000
+      cluster.initial_master_nodes: "{{ groups['master'] }}"
+
+- hosts: coordinating
+  roles:
+    - role: elastic.elasticsearch
+  vars:
+    es_heap_size: "{{ (ansible_memtotal_mb / 2) | int }}m"
+    es_config:
+      cluster.name: "{{ cluster_name }}"
+      network.host: "0.0.0.0"
+      discovery.seed_hosts: "{{ groups['master'] }}"
+      http.compression: true
+      http.compression_level : 3
+      http.port: 9200
+      node.data: false
+      node.master: false
+      node.ingest: false
+      bootstrap.memory_lock: "{{ memory_lock | bool }}"
+      node.ml: false
+      cluster.remote.connect: false
+      discovery.zen.minimum_master_nodes: "{{ elasticsearch_minimum_master_nodes }}"
+      action.destructive_requires_name: true
+      indices.fielddata.cache.size: 30%
+      indices.queries.cache.size: 30%
+      indices.query.bool.max_clause_count : 500000
+      cluster.initial_master_nodes: "{{ groups['master'] }}"

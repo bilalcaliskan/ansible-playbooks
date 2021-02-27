@@ -1,0 +1,8 @@
+---
+
+- name: Preparation role execution play
+  hosts: all
+  become: true
+  roles:
+    - role: bilalcaliskan.vagrant_preparation
+

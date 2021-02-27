@@ -1,0 +1,24 @@
+[master]
+centos7node01 ansible_host=127.0.0.1 ansible_port=2211
+centos7node02 ansible_host=127.0.0.1 ansible_port=2212
+centos7node03 ansible_host=127.0.0.1 ansible_port=2213
+
+[master:vars]
+es_role=master
+
+[data]
+centos7node01 ansible_host=127.0.0.1 ansible_port=2211
+centos7node02 ansible_host=127.0.0.1 ansible_port=2212
+centos7node03 ansible_host=127.0.0.1 ansible_port=2213
+
+[data:vars]
+es_role=data
+
+[coordinating]
+
+[all:vars]
+es_version=7.2.1
+memory_lock=false
+ansible_user=vagrant
+cluster_name=sample-cluster
+elasticsearch_minimum_master_nodes=2
