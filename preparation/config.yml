@@ -7,11 +7,6 @@
     host_timezone: Europe/Istanbul
     timesync_ntp_provider: chrony
     # timesync_ntp_provider: ntp
-  pre_tasks:
-    - name: Ensure python-jmespath is installed
-      yum:
-        name: python-jmespath
-        state: present
   post_tasks:
     - name: Set timezone
       timezone:
@@ -23,7 +18,6 @@
         name: chronyd
         state: restarted
   roles:
-    - role: linux-system-roles.timesync
+    #- role: linux-system-roles.timesync
     - role: bilalcaliskan.vagrant_preparation
 
-...
