@@ -7,6 +7,11 @@
     host_timezone: Europe/Istanbul
     timesync_ntp_provider: chrony
     # timesync_ntp_provider: ntp
+  pre_tasks:
+    - name: Ensure python-jmespath is installed
+      yum:
+        name: python-jmespath
+        state: present
   post_tasks:
     - name: Set timezone
       timezone:
