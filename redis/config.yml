@@ -6,5 +6,6 @@
   roles:
     - role: bilalcaliskan.redis
       vars:
+        install_redis: true
         redis_max_memory: 250mb
         redis_enable_rdb: true
