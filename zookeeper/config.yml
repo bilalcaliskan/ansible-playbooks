@@ -4,6 +4,9 @@
   hosts: all
   become: true
   roles:
-    - role: bilalcaliskan.vagrant_preparation
-      when: install | bool
     - role: bilalcaliskan.zookeeper
+      vars:
+        log_path: /var/log/zookeeper
+        data_dir_path: /var/lib/zookeeper
+        enable_persistency: false
+

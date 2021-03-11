@@ -1,9 +1,14 @@
 ---
 
-- name: Kafka role execution play
-  hosts: all
+- name: Zookeeper role execution play
+  hosts: zookeepers
   become: true
   roles:
-    - role: bilalcaliskan.vagrant_preparation
-      when: install_kafka | bool
+    - role: bilalcaliskan.zookeeper
+
+- name: Kafka role execution play
+  hosts: brokers
+  become: true
+  roles:
     - role: bilalcaliskan.kafka
+
