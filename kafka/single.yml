@@ -1,0 +1,11 @@
+---
+
+- name: Kafka role execution play
+  hosts: brokers
+  become: true
+  roles:
+    - role: bilalcaliskan.kafka
+      vars:
+        install_kafka: true
+        install_zookeeper: true
+

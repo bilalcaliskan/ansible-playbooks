@@ -5,10 +5,19 @@
   become: true
   roles:
     - role: bilalcaliskan.zookeeper
+      vars:
+        install: true
 
 - name: Kafka role execution play
   hosts: brokers
   become: true
   roles:
     - role: bilalcaliskan.kafka
+      vars:
+        install_kafka: true
+        install_zookeeper: false
+        seperate_zookeepers: true
+        zookeepers: 
+          - 10.0.15.26
+          - 10.0.15.27
 

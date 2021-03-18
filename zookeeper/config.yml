@@ -1,7 +1,7 @@
 ---
 
 - name: Zookeeper role execution play
-  hosts: all
+  hosts: zookeepers
   become: true
   roles:
     - role: bilalcaliskan.zookeeper
