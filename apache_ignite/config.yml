@@ -7,3 +7,4 @@
     - role: bilalcaliskan.vagrant_preparation
       when: install_ignite | bool
     - role: bilalcaliskan.apache_ignite
+
